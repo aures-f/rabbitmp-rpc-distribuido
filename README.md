@@ -1,9 +1,14 @@
-🐰Sistema RPC Distribuído com RabbitMQ
+## 🐇 Sistema RPC Distribuído com RabbitMQ
 
-Este projeto implementa um sistema distribuído simples utilizando RabbitMQ para chamadas RPC entre um cliente e vários serviços independentes.
-O foco é demonstrar comunicação assíncrona, uso de múltiplos serviços, filas separadas e o funcionamento do padrão Request/Response.
+Este projeto implementa um sistema simples utilizando RabbitMQ para comunicação RPC entre um cliente e vários serviços independentes.  
+Cada serviço roda em um processo separado, consumindo sua própria fila.  
+O objetivo é demonstrar comunicação assíncrona, distribuição de tarefas e o uso do padrão Request/Response.
 
-📂 Estrutura do Projeto
+---
+
+## 📂 Estrutura do projeto
+
+```text
 rabbitmp-rpc-distribuido/
 │
 ├── client/
@@ -19,77 +24,90 @@ rabbitmp-rpc-distribuido/
 │   └── service_dobro.py
 │
 └── requeriments.txt
+```
 
-🧠 Descrição Geral
+---
 
-O cliente envia solicitações para diferentes filas, e cada serviço responde apenas às chamadas do seu tipo.
-Cada serviço é executado em um terminal separado, funcionando como um consumidor independente.
-Se várias instâncias do mesmo serviço forem abertas, o RabbitMQ divide as requisições entre elas, mostrando a distribuição de tarefas.
+## 🚀 Como executar
 
-Serviços disponíveis:
-
-Soma
-Média
-Busca simples
-Dobro
-
-🚀 Como Executar
-1. Ativar o ambiente virtual
+### 1. Ativar o ambiente virtual
+```
 venv\Scripts\activate
+```
 
-2. Instalar dependências
+### 2. Instalar as dependências
+```
 pip install -r requeriments.txt
+```
 
-3. Iniciar o RabbitMQ
-
-No Windows (PowerShell como Administrador):
-
+### 3. Iniciar o RabbitMQ  
+No Windows (PowerShell como administrador):
+```
 net start RabbitMQ
+```
 
-4. Executar os serviços
-
-Abra um terminal diferente para cada comando:
-
+### 4. Iniciar os serviços (um terminal para cada um)
+```
 python services/service_soma.py
 python services/service_media.py
 python services/service_busca.py
 python services/service_dobro.py
+```
 
-5. Executar o cliente
+### 5. Executar o cliente
+```
 python client/rpc_client.py
+```
 
+---
 
-O cliente apresenta o menu de opções e envia as requisições para o serviço correspondente.
+## 🧠 Funcionamento
 
-🧪 Exemplo de Uso
+O cliente envia requisições para filas específicas e aguarda a resposta.  
+Cada serviço só responde aos pedidos da sua própria fila.  
+Se duas instâncias do mesmo serviço estiverem rodando, o RabbitMQ divide as requisições automaticamente.
+
+Serviços disponíveis:
+
+- Soma  
+- Média  
+- Busca  
+- Dobro  
+
+---
+
+## 🧪 Exemplo de uso
 
 Menu exibido:
 
+```
 1 - Soma
 2 - Média
 3 - Busca
 4 - Dobro
 0 - Sair
+```
 
+Exemplo de operação (Soma):
 
-Exemplo de chamada (Soma):
-
-Informe o primeiro número: 10
-Informe o segundo número: 15
+```
+Primeiro número: 10
+Segundo número: 15
 Resultado: 25
+```
 
-📦 Dependências
+---
 
-O projeto utiliza a biblioteca:
+## 📦 Dependências
 
+```
 pika
+```
 
-🔍 Observações
+---
 
-Os serviços devem permanecer abertos para atender as requisições.
+## 📌 Observações
 
-A comunicação segue o padrão RPC do RabbitMQ.
-
-Cada serviço possui sua própria fila.
-
-Caso haja duas instâncias de um mesmo serviço, o RabbitMQ faz o balanceamento automaticamente.
+- Os serviços precisam estar rodando para atender o cliente.  
+- Cada serviço funciona como um consumidor independente no RabbitMQ.  
+- A comunicação segue o padrão RPC demonstrado no Tutorial 6 do RabbitMQ.  
