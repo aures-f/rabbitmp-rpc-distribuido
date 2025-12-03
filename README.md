@@ -37,8 +37,12 @@ venv\Scripts\activate
 
 ### 2. Instalar as dependências
 ```
+pip install pika
+```
+```
 pip install -r requeriments.txt
 ```
+
 
 ### 3. Iniciar o RabbitMQ  
 No Windows (PowerShell como administrador):
